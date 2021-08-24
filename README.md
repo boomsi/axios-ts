@@ -1,1 +1,5 @@
-axios for ts
+Axios for ts
+
+- TODO
+    - package export
+    - example import
