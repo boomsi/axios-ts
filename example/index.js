@@ -1,39 +1,76 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
-var index_1 = require("../src/index");
-index_1["default"].
-    get('https://api.github.com/search/users?q=aa')
-    .then(function (res) {
-    console.log(res);
-});
-//   axios.request(config)
-//   axios.get(url[, config])
-//   axios.delete(url[, config])
-//   axios.head(url[, config])
-//   axios.options(url[, config])
-//   axios.post(url[, data[, config]])
-//   axios.put(url[, data[, config]])
-//   axios.patch(url[, data[, config]])
-//   const instance = axios.create({
-//     baseURL: 'https://some-domain.com/api/',
-//     timeout: 1000,
-//     headers: {'X-Custom-Header': 'foobar'}
-//   });
-//   // Add a request interceptor
-// axios.interceptors.request.use(function (config) {
-//     // Do something before request is sent
-//     return config;
-//   }, function (error) {
-//     // Do something with request error
-//     return Promise.reject(error);
-//   });
-// // Add a response interceptor
-// axios.interceptors.response.use(function (response) {
-//     // Any status code that lie within the range of 2xx cause this function to trigger
-//     // Do something with response data
-//     return response;
-//   }, function (error) {
-//     // Any status codes that falls outside the range of 2xx cause this function to trigger
-//     // Do something with response error
-//     return Promise.reject(error);
-//   });
+var BaseConfig = /** @class */ (function () {
+    function BaseConfig() {
+    }
+    BaseConfig.prototype.request = function (config) {
+        var method = config.method, url = config.url, data = config.data;
+        return new Promise(function (resolve, reject) {
+            var XML = new XMLHttpRequest();
+            try {
+                XML.open(method, url, true);
+                XML.send(data);
+                XML.onreadystatechange = function () {
+                    if (XML.readyState === 4 && XML.status === 200) {
+                        // XML.responseText
+                        resolve(XML.response);
+                    }
+                };
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
+    };
+    BaseConfig.prototype.get = function (url, config) {
+        return this.request(__assign({ url: url, method: 'GET' }, config));
+    };
+    BaseConfig.prototype.patch = function (url, config) {
+        return this.request(__assign({ url: url, method: 'POST' }, config));
+    };
+    BaseConfig.prototype["delete"] = function (url, config) {
+        return this.request(__assign({ url: url, method: 'DELETE' }, config));
+    };
+    BaseConfig.prototype.post = function (url, data, config) {
+        return this.request(__assign({ url: url, data: data, method: 'POST' }, config));
+    };
+    BaseConfig.prototype.put = function (url, data, config) {
+        return this.request(__assign({ url: url, data: data, method: 'PUT' }, config));
+    };
+    return BaseConfig;
+}());
+var Axios = /** @class */ (function (_super) {
+    __extends(Axios, _super);
+    function Axios() {
+        return _super.call(this) || this;
+    }
+    return Axios;
+}(BaseConfig));
+var axios = new Axios();
+exports["default"] = axios;

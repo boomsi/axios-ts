@@ -7,7 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="./index.js">
+
+    <script>var exports = {};</script>
+
+    <script type='module'>
+        const axios = import('./index.js')
+        console.log(axios)
     </script>
 </body>
 </html>
