@@ -31,57 +31,49 @@ class BaseConfig {
       }
     })
   }
+}
+
+class Axios extends BaseConfig {
+  constructor() {
+    super()
+  }
 
   get(url: IRequest['url'], config?: IConfig): Promise<any> {
-    return this.request({
+    return super.request({
       url,
       method: 'GET',
       ...config,
     })
   }
   patch(url: IRequest['url'], config?: IConfig): Promise<any> {
-    return this.request({
+    return super.request({
       url,
       method: 'POST',
       ...config,
     })
   }
   delete(url: IRequest['url'], config?: IConfig): Promise<any> {
-    return this.request({
+    return super.request({
       url,
       method: 'DELETE',
       ...config,
     })
   }
-  post(
-    url: IRequest['url'],
-    data: IRequest['data'],
-    config?: IConfig
-  ): Promise<any> {
-    return this.request({
+  post(url: IRequest['url'], data: IRequest['data'], config?: IConfig): Promise<any> {
+    return super.request({
       url,
       data,
       method: 'POST',
       ...config,
     })
   }
-  put(
-    url: IRequest['url'],
-    data: IRequest['data'],
-    config?: IConfig
-  ): Promise<any> {
-    return this.request({
+  put(url: IRequest['url'], data: IRequest['data'], config?: IConfig): Promise<any> {
+    return super.request({
       url,
       data,
       method: 'PUT',
       ...config,
     })
-  }
-}
-
-class Axios extends BaseConfig {
-  constructor() {
-    super()
   }
 }
 

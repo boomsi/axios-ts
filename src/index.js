@@ -48,21 +48,6 @@ var BaseConfig = /** @class */ (function () {
             }
         });
     };
-    BaseConfig.prototype.get = function (url, config) {
-        return this.request(__assign({ url: url, method: 'GET' }, config));
-    };
-    BaseConfig.prototype.patch = function (url, config) {
-        return this.request(__assign({ url: url, method: 'POST' }, config));
-    };
-    BaseConfig.prototype["delete"] = function (url, config) {
-        return this.request(__assign({ url: url, method: 'DELETE' }, config));
-    };
-    BaseConfig.prototype.post = function (url, data, config) {
-        return this.request(__assign({ url: url, data: data, method: 'POST' }, config));
-    };
-    BaseConfig.prototype.put = function (url, data, config) {
-        return this.request(__assign({ url: url, data: data, method: 'PUT' }, config));
-    };
     return BaseConfig;
 }());
 var Axios = /** @class */ (function (_super) {
@@ -70,6 +55,21 @@ var Axios = /** @class */ (function (_super) {
     function Axios() {
         return _super.call(this) || this;
     }
+    Axios.prototype.get = function (url, config) {
+        return _super.prototype.request.call(this, __assign({ url: url, method: 'GET' }, config));
+    };
+    Axios.prototype.patch = function (url, config) {
+        return _super.prototype.request.call(this, __assign({ url: url, method: 'POST' }, config));
+    };
+    Axios.prototype["delete"] = function (url, config) {
+        return _super.prototype.request.call(this, __assign({ url: url, method: 'DELETE' }, config));
+    };
+    Axios.prototype.post = function (url, data, config) {
+        return _super.prototype.request.call(this, __assign({ url: url, data: data, method: 'POST' }, config));
+    };
+    Axios.prototype.put = function (url, data, config) {
+        return _super.prototype.request.call(this, __assign({ url: url, data: data, method: 'PUT' }, config));
+    };
     return Axios;
 }(BaseConfig));
 var axios = new Axios();

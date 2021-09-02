@@ -8,6 +8,7 @@
     "jsx": "react",
     "allowJs": false,
     "moduleResolution": "node",
-    "esModuleInterop": true,
-  }
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules"]
 }
