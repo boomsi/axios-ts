@@ -77,6 +77,7 @@ class Axios extends BaseConfig {
   }
 }
 
-const axios = new Axios()
+const axios = new Axios();
 
-export default axios
+(<any>window).axios = axios
+
